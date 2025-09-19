@@ -1,34 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="stylesheet" href="index.css">   
-    <meta charset="UTF-8">
+  <head>
+    <link rel="stylesheet" href="index.css" />
+    <meta charset="UTF-8" />
     <title>Links & Notes Fschmatz</title>
-</head>
-<body>
-    <div class="tabs">		
-        <button class="tab-button active" data-tab="tabs">Tabs</button>
-        <button class="tab-button" data-tab="notes">Notes</button> 
-		<button id="export-btn" class="export-button" title="Export">
-			<img src="assets/export-icon.svg" alt="export" width="20" height="20">
-		</button>		
+  </head>
+
+  <body>
+    <div class="tabs">
+      <button class="tab-button active" data-tab="tabs">Tabs</button>
+
+      <button class="tab-button" data-tab="notes">Notes</button>
+
+      <button id="export-btn" class="export-button" title="Export">
+        <img src="assets/export-icon.svg" alt="export" width="20" height="20" />
+      </button>
+
+      <button id="import-btn" class="import-button" title="Import">
+        <img src="assets/import-icon.svg" alt="import" width="20" height="20" />
+      </button>
     </div>
 
     <div id="tabs-content" class="tab-content active">
-        <div class="input-section">
-            <button id="saveTab-btn">Save Current Tab</button>
-        </div>
-        <ul id="tabs-list"></ul>
+      <div class="input-section">
+        <button id="saveTab-btn">Save Current Tab</button>
+      </div>
+
+      <ul id="tabs-list"></ul>
     </div>
-    
+
     <div id="notes-content" class="tab-content">
-        <div class="input-section">
-            <input type="text" id="note-input" placeholder="Note...">
-            <button id="saveNote-btn">Save Note</button>
-        </div>
-        <ul id="notes-list"></ul>
+      <div class="input-section">
+        <input type="text" id="note-input" placeholder="Note..." />
+        <button id="saveNote-btn">Save Note</button>
+      </div>
+
+      <ul id="notes-list"></ul>
     </div>
-    
+
     <script src="index.js" defer></script>
-</body>
+  </body>
 </html>
