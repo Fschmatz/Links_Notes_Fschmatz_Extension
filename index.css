@@ -1,9 +1,16 @@
+:root {
+  --accent-color: #499f49;
+  --current-tab-background: #28282b;
+  --background: #18181b;
+  --list-item-background: #323234;
+  --text-color: #e0e0e0;
+}
+
 body {
   font-family: "Arial", "Helvetica", sans-serif;
-  padding: 10px;
-  margin: 0;
+  margin: 8px 0 0 0;
   width: 500px;
-  background: #303034;
+  background: var(--background);
 }
 
 .input-section {
@@ -12,55 +19,81 @@ body {
   gap: 5px;
 }
 
-#note-input {
+.note-input {
   flex-grow: 1;
   padding: 8px;
   border: none;
   border-radius: 5px;
-  background: #404044;
-  color: #e0e0e0;
+  background: var(--list-item-background);
+  color: var(--text-color);
 }
+
+.note-input:focus {
+  outline: none;
+}
+
+/* TABS */
 
 .tabs {
   display: flex;
+  gap: 0;
+  background: var(--background);
+  padding: 0 5px 0 5px;
+  justify-content: space-between;
+}
+
+.tab-buttons-container {
+  display: flex;
   gap: 5px;
-  margin-bottom: 15px;
-  border-bottom: 1px solid #404044;
+}
+
+.tab-actions {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
 }
 
 .tab-button {
-  flex: 1;
+  display: flex;
+  align-items: center;
   background: none;
-  color: #c0c0c0;
-  padding: 8px 12px;
+  text-align: left;
+  color: var(--text-color);
   position: relative;
   border-radius: 0;
   border: none;
   cursor: pointer;
   transition: 0.2s all;
+  gap: 6px;
+  padding: 8px 15px;
 }
 
-.tab-button:hover {
-  color: #e0e0e0;
+.tab-button:hover:not(.active) {
+  background: var(--list-item-background);
+  color: var(--text-color);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .tab-button.active {
-  background: none;
-  color: #45a245;
+  background: var(--current-tab-background);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  margin-bottom: 0;
+  z-index: 1;
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .tab-button.active::after {
-  content: "";
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: #45a245;
+  content: none;
 }
 
 .tab-content {
   display: none;
+  background: var(--current-tab-background);
+  padding: 15px 10px 10px 10px;
+  border-radius: 0 5px 5px 5px;
+  margin-top: -1px;
 }
 
 .tab-content.active {
@@ -71,6 +104,8 @@ body {
   justify-content: flex-end;
 }
 
+/* LIST */
+
 ul {
   margin: 0;
   padding: 0;
@@ -79,7 +114,7 @@ ul {
 
 li {
   margin-bottom: 10px;
-  background: #404044;
+  background: var(--list-item-background);
   border-radius: 5px;
   padding: 10px;
   font-size: 13px;
@@ -94,40 +129,35 @@ li {
 
 .item-content-notes {
   flex-grow: 1;
-  color: #e0e0e0;
+  color: var(--text-color);
   word-break: break-word;
 }
 
 .item-content-tabs {
-  color: #5aaf5a;
+  color: var(--accent-color);
   text-decoration: none;
 }
 
 /* SAVE BTN */
 
 .save-button {
-  color: #e0e0e0;
-  background: #45a245;
+  color: var(--text-color);
+  background: var(--accent-color);
   border: none;
-  border-radius: 5px;
-  padding: 8px;
+  border-radius: 25px;
+  padding: 8px 12px;
   cursor: pointer;
   transition: 0.2s all;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
-  line-height: 1;    
+  line-height: 1;
 }
 
-.save-button:active {
-  transform: scale(0.95);
-  background: #57b657;
-}
-
-.save-button img { 
-  margin-bottom: 2px; 
-  display: block; 
+.save-button img {
+  margin-bottom: 2px;
+  display: block;
 }
 
 /* DELETE BTN */
@@ -135,7 +165,6 @@ li {
 .delete-btn {
   background: none;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
   transition: 0.2s all;
   padding: 5px 8px 3px 8px;
@@ -153,7 +182,6 @@ li {
 .import-button {
   background: none;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
   transition: 0.2s all;
   padding: 5px 8px;

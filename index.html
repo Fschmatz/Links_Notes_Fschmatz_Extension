@@ -8,17 +8,49 @@
 
   <body>
     <div class="tabs">
-      <button class="tab-button active" data-tab="tabs">Tabs</button>
+      <div class="tab-buttons-container">
+        <button class="tab-button active" data-tab="tabs">
+          <img
+            src="assets/tabs-icon.svg"
+            alt="Tabs Icon"
+            width="16"
+            height="16"
+            class="tab-icon"
+          />
+          Tabs
+        </button>
 
-      <button class="tab-button" data-tab="notes">Notes</button>
+        <button class="tab-button" data-tab="notes">
+          <img
+            src="assets/notes-icon.svg"
+            alt="Notes Icon"
+            width="16"
+            height="16"
+            class="tab-icon"
+          />
+          Notes
+        </button>
+      </div>
 
-      <button id="export-btn" class="export-button" title="Export">
-        <img src="assets/export-icon.svg" alt="export" width="20" height="20" />
-      </button>
+      <div class="tab-actions">
+        <button id="export-btn" class="export-button" title="Export">
+          <img
+            src="assets/export-icon.svg"
+            alt="export"
+            width="20"
+            height="20"
+          />
+        </button>
 
-      <button id="import-btn" class="import-button" title="Import">
-        <img src="assets/import-icon.svg" alt="import" width="20" height="20" />
-      </button>
+        <button id="import-btn" class="import-button" title="Import">
+          <img
+            src="assets/import-icon.svg"
+            alt="import"
+            width="20"
+            height="20"
+          />
+        </button>
+      </div>
     </div>
 
     <div id="tabs-content" class="tab-content active">
@@ -34,7 +66,12 @@
 
     <div id="notes-content" class="tab-content">
       <div class="input-section">
-        <input type="text" id="note-input" placeholder="Note..." />
+        <input
+          id="note-input"
+          type="text"
+          class="note-input"
+          placeholder="Note..."
+        />
         <button id="saveNote-btn" class="save-button">
           <img src="assets/save-icon.svg" alt="Save" width="18" height="18" />
           Save
