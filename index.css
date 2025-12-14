@@ -21,21 +21,6 @@ body {
   color: #e0e0e0;
 }
 
-button {
-  color: #e0e0e0;
-  background: #45a245;
-  border: none;
-  border-radius: 5px;
-  padding: 8px 12px;
-  cursor: pointer;
-  transition: 0.2s all;
-}
-
-button:active {
-  transform: scale(0.95);
-  background: #57b657;
-}
-
 .tabs {
   display: flex;
   gap: 5px;
@@ -50,6 +35,9 @@ button:active {
   padding: 8px 12px;
   position: relative;
   border-radius: 0;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s all;
 }
 
 .tab-button:hover {
@@ -115,68 +103,66 @@ li {
   text-decoration: none;
 }
 
+/* SAVE BTN */
+
+.save-button {
+  color: #e0e0e0;
+  background: #45a245;
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  cursor: pointer;
+  transition: 0.2s all;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  line-height: 1;    
+}
+
+.save-button:active {
+  transform: scale(0.95);
+  background: #57b657;
+}
+
+.save-button img { 
+  margin-bottom: 2px; 
+  display: block; 
+}
+
+/* DELETE BTN */
+
 .delete-btn {
   background: none;
-  padding: 5px;
-  color: #c0c0c0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s all;
+  padding: 5px 8px 3px 8px;
+  border-radius: 25px;
+  flex: 0;
 }
 
 .delete-btn:hover {
-  color: #d93939;
+  background: #e04444;
 }
 
-.delete-btn img {
-  filter: invert(80%) brightness(80%);
-  transition: filter 0.2s ease-in-out;
-}
+/* IMPORT EXPORT BTN */
 
-.delete-btn:hover img {
-  filter: brightness(0) saturate(100%) invert(22%) sepia(86%) saturate(6581%)
-    hue-rotate(357deg) brightness(91%) contrast(106%);
-}
-
-.export-button {
-  background: none;
-  padding: 5px 8px;
-  color: #c0c0c0;
-  border-radius: 25px;
-  flex: 0;
-  margin-right: 5px;
-}
-
-.export-button:hover {
-  background: #404044;
-  color: #ffffff;
-}
-
-.export-button img {
-  filter: #a0a0a0;
-  transition: filter 0.2s ease-in-out;
-}
-
-.export-button:hover img {
-  color: #c0c0c0;
-}
-
+.export-button,
 .import-button {
   background: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s all;
   padding: 5px 8px;
-  color: #c0c0c0;
   border-radius: 25px;
   flex: 0;
   margin-right: 5px;
 }
 
+.export-button:hover,
 .import-button:hover {
   background: #404044;
-  color: #ffffff;
-}
-
-.import-button img {
-  filter: #a0a0a0;
-  transition: filter 0.2s ease-in-out;
-}
-
-.import-button:hover img {
-  color: #c0c0c0;
 }

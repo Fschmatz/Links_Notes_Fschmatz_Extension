@@ -91,7 +91,7 @@ function exportData() {
   }, 0);
 }
 
-//  Import
+// Import
 function importData() {
   const input = document.createElement("input");
   input.type = "file";
@@ -106,7 +106,7 @@ function importData() {
     }
 
     if (!file.name.endsWith(".json")) {
-      alert("Por favor, selecione um arquivo JSON válido.");
+      alert("Not JSON, Invalid file!");
       return;
     }
 
@@ -167,7 +167,7 @@ function renderTabs() {
                     ${tab.title}
                 </a>
                 <button class="delete-btn" data-type="tab" data-index="${index}">
-                   <img src="assets/trash-fill.svg" alt="delete" width="14" height="14">
+                   <img src="assets/delete-icon.svg" alt="delete" width="17" height="17">
                 </button>
             </div>
         </li>
@@ -184,7 +184,7 @@ function renderNotes() {
             <div class="list-item">
                 <span class="item-content-notes">${note}</span>
                 <button class="delete-btn" data-type="note" data-index="${index}">
-                     <img src="assets/trash-fill.svg" alt="delete" width="14" height="14">
+                     <img src="assets/delete-icon.svg" alt="delete" width="17" height="17">
                 </button>
             </div>
         </li>
