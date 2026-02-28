@@ -16,6 +16,11 @@ let state = {
   tabs: [],
 };
 
+let editingState = {
+  type: null,
+  index: -1
+};
+
 /* ==========================================================================
    INIT
    ========================================================================== */
@@ -64,11 +69,20 @@ function handleTabSwitch(event) {
 function handleSaveNote() {
   const noteText = noteInput.value.trim();
   if (noteText) {
-    const noteObj = {
-      text: noteText,
-      date: getCurrentDate(),
-    };
-    state.notes.unshift(noteObj);
+    if (editingState.type === "note" && editingState.index > -1) {
+      if (typeof state.notes[editingState.index] === "object") {
+        state.notes[editingState.index].text = noteText;
+      } else {
+        state.notes[editingState.index] = noteText;
+      }
+      editingState = { type: null, index: -1 };
+    } else {
+      const noteObj = {
+        text: noteText,
+        date: getCurrentDate(),
+      };
+      state.notes.unshift(noteObj);
+    }
     localStorage.setItem("notes", JSON.stringify(state.notes));
     noteInput.value = "";
     renderNotes();
@@ -77,6 +91,17 @@ function handleSaveNote() {
 
 function handleSaveTab() {
   const tabName = tabNameInput.value.trim();
+
+  if (editingState.type === "tab" && editingState.index > -1) {
+    if (tabName) {
+      state.tabs[editingState.index].title = tabName;
+    }
+    localStorage.setItem("tabs", JSON.stringify(state.tabs));
+    renderTabs();
+    tabNameInput.value = "";
+    editingState = { type: null, index: -1 };
+    return;
+  }
 
   if (chrome && chrome.tabs) {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -109,6 +134,27 @@ function handleDelete(event) {
       state.tabs.splice(index, 1);
       localStorage.setItem("tabs", JSON.stringify(state.tabs));
       renderTabs();
+    }
+  }
+}
+
+function handleEdit(event) {
+  if (event.target.closest(".edit-btn")) {
+    const button = event.target.closest(".edit-btn");
+    const type = button.dataset.type;
+    const index = parseInt(button.dataset.index);
+
+    editingState = { type, index };
+
+    if (type === "note") {
+      const note = state.notes[index];
+      const isObj = typeof note === "object" && note !== null;
+      noteInput.value = isObj ? note.text : note;
+      noteInput.focus();
+    } else if (type === "tab") {
+      const tab = state.tabs[index];
+      tabNameInput.value = tab.title;
+      tabNameInput.focus();
     }
   }
 }
@@ -210,9 +256,14 @@ function renderTabs() {
                   </a>
                   ${dateHtml}
                 </div>
-                <button class="delete-btn" data-type="tab" data-index="${index}">
-                   <img src="assets/delete-icon.svg" alt="delete" width="17" height="17">
-                </button>
+                <div class="item-actions">
+                  <button class="edit-btn" data-type="tab" data-index="${index}">
+                     <img src="assets/edit-icon.svg" alt="edit" width="17" height="17">
+                  </button>
+                  <button class="delete-btn" data-type="tab" data-index="${index}">
+                     <img src="assets/delete-icon.svg" alt="delete" width="17" height="17">
+                  </button>
+                </div>
             </div>
         </li>
     `;
@@ -235,9 +286,14 @@ function renderNotes() {
                   <span class="item-content-notes">${text}</span>
                   ${dateHtml}
                 </div>
-                <button class="delete-btn" data-type="note" data-index="${index}">
-                     <img src="assets/delete-icon.svg" alt="delete" width="17" height="17">
-                </button>
+                <div class="item-actions">
+                  <button class="edit-btn" data-type="note" data-index="${index}">
+                       <img src="assets/edit-icon.svg" alt="edit" width="17" height="17">
+                  </button>
+                  <button class="delete-btn" data-type="note" data-index="${index}">
+                       <img src="assets/delete-icon.svg" alt="delete" width="17" height="17">
+                  </button>
+                </div>
             </div>
         </li>
     `;
@@ -263,6 +319,9 @@ function setupEventListeners() {
   noteInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") handleSaveNote();
   });
+  tabNameInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") handleSaveTab();
+  });
 
   // Import/Export
   exportBtn.addEventListener("click", handleExport);
@@ -270,6 +329,7 @@ function setupEventListeners() {
 
   // Global Clicks (Delegation for Delete)
   document.addEventListener("click", handleDelete);
+  document.addEventListener("click", handleEdit);
 }
 
 // Start
