@@ -11,6 +11,10 @@ const tabButtons = document.querySelectorAll(".tab-button");
 const exportBtn = document.getElementById("export-btn");
 const importBtn = document.getElementById("import-btn");
 const tabContents = document.querySelectorAll(".tab-content");
+const confirmModal = document.getElementById("confirm-modal");
+const confirmMessage = document.getElementById("confirm-message");
+const confirmCancel = document.getElementById("confirm-cancel");
+const confirmDelete = document.getElementById("confirm-delete");
 let state = {
   notes: [],
   tabs: [],
@@ -120,11 +124,14 @@ function handleSaveTab() {
   }
 }
 
-function handleDelete(event) {
+async function handleDelete(event) {
   if (event.target.closest(".delete-btn")) {
     const button = event.target.closest(".delete-btn");
     const type = button.dataset.type;
     const index = parseInt(button.dataset.index);
+
+    const confirmed = await showConfirmModal("Are you sure you want to delete this?");
+    if (!confirmed) return;
 
     if (type === "note") {
       state.notes.splice(index, 1);
@@ -136,6 +143,32 @@ function handleDelete(event) {
       renderTabs();
     }
   }
+}
+
+function showConfirmModal(message) {
+  return new Promise((resolve) => {
+    confirmMessage.textContent = message;
+    confirmModal.classList.add("active");
+
+    const handleConfirm = () => {
+      cleanup();
+      resolve(true);
+    };
+
+    const handleCancel = () => {
+      cleanup();
+      resolve(false);
+    };
+
+    const cleanup = () => {
+      confirmDelete.removeEventListener("click", handleConfirm);
+      confirmCancel.removeEventListener("click", handleCancel);
+      confirmModal.classList.remove("active");
+    };
+
+    confirmDelete.addEventListener("click", handleConfirm);
+    confirmCancel.addEventListener("click", handleCancel);
+  });
 }
 
 function handleEdit(event) {
