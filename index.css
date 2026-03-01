@@ -95,7 +95,6 @@ body {
   display: none;
   background: var(--current-tab-background);
   padding: 15px 10px 10px 10px;
-  border-radius: 0 5px 5px 5px;
   margin-top: -1px;
 }
 
@@ -189,7 +188,7 @@ li {
   background: var(--list-item-btns-background-hover);
   padding: 5px;
   border-radius: 8px;
-  box-shadow: -10px 0 15px var(--list-item-btns-background-hover), 0 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
 }
 
 li:hover .item-actions {
